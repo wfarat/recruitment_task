@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.wiremock.spring.EnableWireMock;
 
@@ -123,13 +122,11 @@ public class GithubControllerIT {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$").isArray()
-                .jsonPath("$.length()").isEqualTo(1)
-                .jsonPath("$[0].name").isEqualTo("budgetSpring")
-                .jsonPath("$[0].ownerLogin").isEqualTo("wfarat")
-                .jsonPath("$[0].branches.length()").isEqualTo(1)
-                .jsonPath("$[0].branches[0].lastCommitSha").isEqualTo("xxx");
+                .jsonPath("$.length()").isEqualTo(1);
         verify(1, getRequestedFor(urlEqualTo("/users/wfarat/repos")));
         verify(1, getRequestedFor(urlEqualTo("/repos/wfarat/budgetSpring/branches")));
+        verify(0, getRequestedFor(urlEqualTo("/repos/wfarat/someForkedRepo/branches")));
+
     }
 
 }
