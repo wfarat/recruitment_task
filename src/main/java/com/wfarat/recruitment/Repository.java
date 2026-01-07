@@ -9,6 +9,7 @@ public class Repository {
     private String name;
     private Owner owner;
     private List<Branch> branches;
+    private boolean fork;
 
     public List<Branch> getBranches() {
         return branches;
@@ -32,5 +33,13 @@ public class Repository {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public void setFork(boolean fork) {
+        this.fork = fork;
+    }
+
+    public boolean isFork() {
+        return fork;
     }
 }

@@ -19,6 +19,7 @@ public class GithubService {
 
     public List<Repository> getRepositoriesWithBranches(String username) {
         return getRepositories(username).stream()
+                .filter(repo -> !repo.isFork())
                 .peek(repo -> repo.setBranches(getBranches(repo.getOwnerLogin(), repo.getName())))
                 .toList();
     }
